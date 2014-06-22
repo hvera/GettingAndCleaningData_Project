@@ -1,0 +1,54 @@
+CodeBook for Getting and Cleaning Data - Cousera Course Project
+
+The code for the project is in the file run_analysis.R
+
+This program downloads the data from 
+
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
+Full description of the data set:
+
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+
+The data is downloaded to the ./data directory, which is created if it doesn't exist.
+
+The data is only downloaded if it doesn't already exist in the data directory.
+
+Application variables:
+dataURL - The URL of the source data (described above)
+dataDir - The ./data directory for the working data files
+extractDir - The directory name where the data is actually unzipped: "UCI HAR Dataset"
+testDataDir - Subdirectory of the source data that contains test data
+trainDataDir - Subdirectory of the source data that contains training data
+
+Processing Steps:
+
+- Data is read from the source files into the following variables
+  subject_test, subject_train, test_y, test_x
+
+- Features and activity labels are read into
+  features, activity_labels
+
+- Subject data (train and test) is merged into `subject` variable and labeled with `Subject`
+
+- The test_x and train_x tables are tagged with the features names from the features table
+
+- The test_x and train_x are subsetted with only the columns in the feature_names that contain
+  'mean' or 'std' in the name
+
+- Data from test_x and train_x are combined into combined_x
+
+- Data from the activities (y data) is combined into the `activities` table which is labeled
+  with "ActivityID" and "ActivityLabel"
+
+- All the data is combined into the `allData` table
+
+- The data is melted so each row has a unique id and variable combination and is then cast
+  into the final shape using dcast, taking the mean of the values. This is stored in
+  the `result` variable
+
+- The data in the final result table is written to "clean_dataset.txt" in the current working 
+  directory.
+
+
+
